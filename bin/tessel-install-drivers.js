@@ -6,7 +6,7 @@ var child_process = require('child_process');
 if (process.platform === 'linux') {
   var rules_name = '85-tessel.rules';
   var dest = '/etc/udev/rules.d/' + rules_name;
-  var rules = fs.readFileSync(__dirname + '/../install/' + rules_name);
+  var rules = fs.readFileSync(__dirname + '/../resources/' + rules_name);
 
   try {
     fs.writeFileSync(dest, rules);
