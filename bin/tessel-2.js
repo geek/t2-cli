@@ -40,6 +40,11 @@ function callControllerCallback(methodName) {
   };
 }
 
+parser.command('install-drivers')
+  .callback(function() {
+    require('./tessel-install-drivers');
+  });
+
 parser.command('provision')
   .callback(callControllerCallback('provisionTessel'))
   .option('force', {
