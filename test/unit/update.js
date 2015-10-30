@@ -23,7 +23,8 @@ exports['controller.update'] = {
     this.logsBasic = this.sandbox.stub(logs, 'basic', function() {});
     this.tessel = TesselSimulator();
 
-    this.getTessel = this.sandbox.stub(Tessel, 'get', function() {
+    this.getTessel = this.sandbox.stub(Tessel, 'get', function(opts) {
+      this.tessel.setLANConnectionPreference(opts.lanPrefer);
       return Promise.resolve(this.tessel);
     }.bind(this));
 
@@ -127,9 +128,9 @@ exports['controller.update'] = {
     });
 
     var opts = {
-      version: '0.0.1'
+      version: '0.0.1',
+      lanPrefer: true
     };
-
     controller.update(opts)
       .then(function() {
         // We have to fetch the build list to figure out what the sha is of this version
@@ -161,7 +162,8 @@ exports['controller.update'] = {
     test.expect(1);
 
     var opts = {
-      version: '0.0.1'
+      version: '0.0.1',
+      lanPrefer: true
     };
 
     controller.update(opts)
@@ -244,7 +246,9 @@ exports['controller.update'] = {
       return Promise.resolve('ac4d8d8a5bfd671f7f174c2eaa258856bd82fe29');
     });
 
-    var opts = {};
+    var opts = {
+      lanPrefer: true
+    };
     controller.update(opts)
       .then(function() {
         // Make sure we checked what the Tessel version is currently at
@@ -300,7 +304,9 @@ exports['controller.update'] = {
       return Promise.resolve(binaries);
     });
 
-    var opts = {};
+    var opts = {
+      lanPrefer: true
+    };
     controller.update(opts)
       .then(function() {
         // Make sure we checked what the Tessel version is currently at
@@ -361,7 +367,9 @@ exports['controller.update'] = {
       return Promise.reject(new Error(errMessage));
     }.bind(this));
 
-    var opts = {};
+    var opts = {
+      lanPrefer: true
+    };
     controller.update(opts)
       .catch(function(err) {
         // We fetched only one build
@@ -412,7 +420,8 @@ exports['controller.update'] = {
     });
 
     var opts = {
-      force: true
+      force: true,
+      lanPrefer: true
     };
 
     controller.update(opts)
@@ -468,7 +477,8 @@ exports['controller.update'] = {
     });
 
     var opts = {
-      version: 'latest'
+      version: 'latest',
+      lanPrefer: true
     };
 
     controller.update(opts)
@@ -506,7 +516,8 @@ exports['controller.update'] = {
     });
 
     var opts = {
-      version: 'x.x.x'
+      version: 'x.x.x',
+      lanPrefer: true
     };
     controller.update(opts)
       .catch(function(message) {
@@ -551,7 +562,9 @@ exports['controller.update'] = {
       return Promise.resolve(binaries);
     });
 
-    var opts = {};
+    var opts = {
+      lanPrefer: true
+    };
     controller.update(opts)
       .then(function() {
         // It should attempt to fetch a build
@@ -605,7 +618,9 @@ exports['controller.update'] = {
       return Promise.resolve(binaries);
     });
 
-    var opts = {};
+    var opts = {
+      lanPrefer: true
+    };
     controller.update(opts)
       .then(function() {
         test.fail('It should throw an error if we get an unknown error');

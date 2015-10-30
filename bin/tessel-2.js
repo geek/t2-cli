@@ -21,11 +21,16 @@ function makeCommand(commandName) {
     })
     .option('lan', {
       flag: true,
-      help: 'Use LAN connection'
+      help: 'Use only a LAN connection'
     })
     .option('usb', {
       flag: true,
-      help: 'Use USB connection'
+      help: 'Use only a USB connection'
+    })
+    .option('lanPrefer', {
+      flag: true,
+      default: false,
+      help: 'Prefer a LAN connection if it\'s available, otherwise use USB'
     });
 }
 
@@ -103,6 +108,12 @@ makeCommand('run')
   })
   .option('slimPath', {
     default: 'build.js'
+  })
+  // Overrides default lanPrefer because deploys require high bandwidth
+  .option('lanPrefer', {
+    flag: true,
+    default: true,
+    help: 'Prefer a LAN connection if it\'s available, otherwise use USB'
   })
   .help('Deploy a script to Tessel and run it with Node');
 

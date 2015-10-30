@@ -627,6 +627,7 @@ exports['Tessel.get'] = {
     });
 
     Tessel.get({
+        lanPrefer: true,
         timeout: 0.01
       })
       .then(function() {

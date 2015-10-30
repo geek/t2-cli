@@ -24,15 +24,20 @@ var defaults = {
   },
   lan: {
     flag: true,
-    help: 'Use LAN connection',
+    help: 'Use only a LAN connection',
     name: 'lan',
     string: '--lan',
   },
   usb: {
     flag: true,
-    help: 'Use USB connection',
+    help: 'Use only a USB connection',
     name: 'usb',
     string: '--usb',
+  },
+  lan_prefer: {
+    flag: true,
+    default: false,
+    help: 'Prefer a LAN connection if it\'s available, otherwise use USB'
   }
 };
 
@@ -141,7 +146,8 @@ exports['Tessel (cli: update)'] = {
       0: 'update',
       version: 42,
       _: ['update'],
-      timeout: 5
+      timeout: 5,
+      lanPrefer: false
     });
 
     cli(['update', '--list', ' ']);
